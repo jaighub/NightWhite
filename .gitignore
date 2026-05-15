@@ -1,18 +1,9 @@
-*.iml
-.gradle
-/local.properties
-/.idea
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
-
 # Built application files
 *.apk
 *.aar
 *.ap_
+*.aab
+output-metadata.json
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -38,15 +29,28 @@ local.properties
 # Android Studio captures folder
 captures/
 
+# Android Studio generated files and folders
+.externalNativeBuild/
+.cxx/
+
 # IntelliJ
 *.iml
 .idea/
 workspace.xml
 dependencies.xml
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
 
 # Keystore files
 *.jks
 *.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android Profiling
+*.hprof
 
 # Version control
 .svn/
@@ -55,7 +59,7 @@ dependencies.xml
 .DS_Store
 Thumbs.db
 
-# Temp files
+# Log/Temp files
 *.log
 *.tmp.txt
 test.toml
