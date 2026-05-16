@@ -27,6 +27,7 @@ fun SleepTimerSelector(
 ) {
     val options = listOf(
         0 to stringResource(R.string.timer_off),
+        2 to stringResource(R.string.timer_2m),
         60 to stringResource(R.string.timer_1h),
         120 to stringResource(R.string.timer_2h),
         240 to stringResource(R.string.timer_4h),
