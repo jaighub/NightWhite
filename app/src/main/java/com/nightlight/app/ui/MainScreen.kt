@@ -55,7 +55,7 @@ fun MainScreen(viewModel: NightlightViewModel) {
     val showControls by viewModel.showControls.collectAsState()
     val sleepTimerMinutes by viewModel.sleepTimerMinutes.collectAsState()
 
-    val backgroundColor = if (isPoweredOn) effectiveColor else WarmBlack
+    val backgroundColor = if (isPoweredOn) effectiveColor else Color.Black
 
     Box(
         modifier = Modifier
