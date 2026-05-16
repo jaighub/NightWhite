@@ -147,7 +147,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        audioService?.getAudioManager()?.stop()
+        val intent = Intent(this, AudioService::class.java)
+        stopService(intent)
     }
 
     private fun updateAudioService(isSoundOn: Boolean) {

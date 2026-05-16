@@ -35,7 +35,7 @@ class AudioService : Service() {
         audioManager.stop()
         val notification = buildNotification("White noise playing")
         startForeground(NOTIFICATION_ID, notification)
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent?): android.os.IBinder = binder

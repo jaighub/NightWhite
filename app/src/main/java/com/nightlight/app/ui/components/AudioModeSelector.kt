@@ -67,31 +67,29 @@ fun AudioModeSelector(
             )
         }
 
-        if (isSoundOn) {
-            Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                options.forEach { (mode, label) ->
-                    val isSelected = audioMode == mode
-                    OutlinedButton(
-                        onClick = { onAudioModeChange(mode) },
-                        modifier = Modifier.weight(1f),
-                        shape = RoundedCornerShape(8.dp),
-                        border = if (isSelected) BorderStroke(2.dp, Color(0xFFFFB347)) else BorderStroke(1.dp, Color(0xFF3E2C21)),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = if (isSelected) Color(0xFFFFB347).copy(alpha = 0.3f) else Color.Transparent,
-                            contentColor = Color.White,
-                            disabledContainerColor = Color.Transparent,
-                            disabledContentColor = Color(0xFF8A7A6D)
-                        )
-                    ) {
-                        Text(
-                            text = label,
-                            style = MaterialTheme.typography.labelLarge
-                        )
-                    }
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            options.forEach { (mode, label) ->
+                val isSelected = audioMode == mode
+                OutlinedButton(
+                    onClick = { onAudioModeChange(mode) },
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(8.dp),
+                    border = if (isSelected) BorderStroke(2.dp, Color(0xFFFFB347)) else BorderStroke(1.dp, Color(0xFF3E2C21)),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = if (isSelected) Color(0xFFFFB347).copy(alpha = 0.3f) else Color.Transparent,
+                        contentColor = Color.White,
+                        disabledContainerColor = Color.Transparent,
+                        disabledContentColor = Color(0xFF8A7A6D)
+                    )
+                ) {
+                    Text(
+                        text = label,
+                        style = MaterialTheme.typography.labelLarge
+                    )
                 }
             }
         }

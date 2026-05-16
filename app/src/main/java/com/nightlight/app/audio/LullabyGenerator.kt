@@ -4,36 +4,66 @@ import kotlin.math.PI
 import kotlin.math.sin
 
 class LullabyGenerator {
+
     private val notes = listOf(
-        Note(261.63f),
-        Note(329.63f),
-        Note(392.00f),
-        Note(523.25f),
-        Note(392.00f),
-        Note(329.63f),
-        Note(261.63f),
-        Note(329.63f)
+        // "Lullaby and good night"
+        Note(392.00f, 6), Note(392.00f, 6), Note(440.00f, 6),
+        Note(392.00f, 6), Note(329.63f, 6), Note(392.00f, 6),
+        Note(440.00f, 6), Note(392.00f, 6),
+
+        // "with roses bedight"
+        Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
+        Note(261.63f, 6), Note(329.63f, 6), Note(392.00f, 6),
+        Note(440.00f, 6), Note(392.00f, 6),
+
+        // "Lullaby and good night"
+        Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
+        Note(261.63f, 6), Note(329.63f, 6), Note(392.00f, 6),
+        Note(440.00f, 6), Note(392.00f, 6),
+
+        // "thy mother's delight"
+        Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
+        Note(261.63f, 6), Note(261.63f, 6), Note(261.63f, 6),
+        Note(261.63f, 6), Note(261.63f, 6),
     )
 
-    private val samplesPerNote = AudioConstants.SAMPLE_RATE
-    private val amplitude = 0.3f
+    private val beatsPerSecond = 3.2f
+    private val amplitude = 0.2f
+    private val envelopeSamples = (AudioConstants.SAMPLE_RATE / beatsPerSecond * 0.15f).toInt()
 
     private var currentNoteIndex = 0
     private var sampleIndexInNote = 0
+    private var totalSampleCount = 0L
 
     fun generate(buffer: ShortArray) {
         for (i in buffer.indices) {
             val note = notes[currentNoteIndex]
-            val sample = (amplitude * sin(2.0f * PI.toFloat() * note.frequency * sampleIndexInNote / AudioConstants.SAMPLE_RATE.toFloat())).toFloat()
+            val samplesPerBeat = AudioConstants.SAMPLE_RATE.toFloat() / beatsPerSecond
+            val samplesForNote = (samplesPerBeat * note.beats).toInt()
+
+            val phase = 2.0f * PI.toFloat() * note.frequency * totalSampleCount / AudioConstants.SAMPLE_RATE.toFloat()
+            val rawSample = sin(phase).toFloat()
+
+            val envelope = calculateEnvelope(sampleIndexInNote, samplesForNote)
+            val sample = amplitude * rawSample * envelope
+
             buffer[i] = (sample * 32767).toInt().toShort()
 
             sampleIndexInNote++
-            if (sampleIndexInNote >= samplesPerNote) {
+            totalSampleCount++
+            if (sampleIndexInNote >= samplesForNote) {
                 sampleIndexInNote = 0
                 currentNoteIndex = (currentNoteIndex + 1) % notes.size
             }
         }
     }
 
-    private data class Note(val frequency: Float)
+    private fun calculateEnvelope(pos: Int, total: Int): Float {
+        if (total <= envelopeSamples * 2) return 1f
+        val fadeIn = (pos.toFloat() / envelopeSamples).coerceAtMost(1f)
+        val fadeOut = ((total - pos).toFloat() / envelopeSamples).coerceAtMost(1f)
+        return fadeIn * fadeOut
+    }
+
+    private data class Note(val frequency: Float, val beats: Int)
 }
