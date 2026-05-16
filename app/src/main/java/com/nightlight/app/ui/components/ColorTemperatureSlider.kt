@@ -2,8 +2,10 @@ package com.nightlight.app.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -26,6 +28,12 @@ fun ColorTemperatureSlider(
 ) {
     val sliderValue = ((colorTemp - 1900) / 4600f).coerceIn(0f, 1f)
 
+    val label = when {
+        sliderValue < 0.33f -> "Warmer"
+        sliderValue > 0.66f -> "Cooler"
+        else -> ""
+    }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -36,10 +44,31 @@ fun ColorTemperatureSlider(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Color Temperature",
+                text = "Warmer",
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.labelLarge,
-                color = if (enabled) Color.White else Color(0xFF8A7A6D)
+                color = if (enabled) Color(0xFFFFB347) else Color(0xFF8A7A6D)
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            if (label.isNotEmpty()) {
+                Text(
+                    text = label,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = if (enabled) Color.White else Color(0xFF8A7A6D)
+                )
+                Spacer(modifier = Modifier.weight(1f))
+            } else {
+                Spacer(modifier = Modifier.weight(1f))
+            }
+
+            Text(
+                text = "Cooler",
+                fontWeight = FontWeight.Medium,
+                style = MaterialTheme.typography.labelLarge,
+                color = if (enabled) Color(0xFF87CEEB) else Color(0xFF8A7A6D)
             )
         }
 

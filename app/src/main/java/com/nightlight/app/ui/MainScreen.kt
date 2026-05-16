@@ -70,12 +70,6 @@ fun MainScreen(viewModel: NightlightViewModel) {
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            Text(
-                text = "${colorTemp}K",
-                color = Color.White.copy(alpha = 0.7f),
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-
             ColorTemperatureSlider(
                 colorTemp = colorTemp,
                 onColorTempChange = { viewModel.setColorTemp(it) },

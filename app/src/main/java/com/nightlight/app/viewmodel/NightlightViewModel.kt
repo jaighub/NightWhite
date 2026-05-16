@@ -62,9 +62,11 @@ class NightlightViewModel : ViewModel() {
         prefs = context.getSharedPreferences("nightlight_prefs", Context.MODE_PRIVATE)
         sysAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as SysAudioManager
 
-        val maxVol = sysAudioManager?.getStreamMaxVolume(SysAudioManager.STREAM_MUSIC) ?: 15
-        val currentVol = sysAudioManager?.getStreamVolume(SysAudioManager.STREAM_MUSIC) ?: 7
-        _volume.value = currentVol.toFloat() / maxVol.toFloat()
+        _volume.value = if (prefs.contains("volume")) {
+            prefs.getFloat("volume", 0.3f)
+        } else {
+            0.3f
+        }
 
         _isPoweredOn.value = prefs.getBoolean("isPoweredOn", false)
         _brightness.value = prefs.getFloat("brightness", 0.5f)
@@ -104,6 +106,7 @@ class NightlightViewModel : ViewModel() {
 
     fun setVolume(gain: Float) {
         _volume.value = gain.coerceIn(0f, 1f)
+        prefs.edit().putFloat("volume", _volume.value).apply()
         sysAudioManager?.let { am ->
             val maxVol = am.getStreamMaxVolume(SysAudioManager.STREAM_MUSIC)
             val vol = (gain * maxVol).toInt()
