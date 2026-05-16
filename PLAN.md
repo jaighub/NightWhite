@@ -277,6 +277,22 @@
 
 ---
 
+## Phase 10: Audio Polish
+
+**Status:** ✅ COMPLETE
+
+**Goal:** Improve lullaby audio quality to sound less synthetic.
+
+| Step | Description | Details |
+|------|-------------|---------|
+| 10.1 | Add Harmonics | Layer 2nd and 3rd harmonics over fundamental frequency for richer timbre. |
+| 10.2 | Add Reverb/Delay | Mix delayed signal with dry signal to create spatial warmth. |
+| 10.3 | Adjust Amplitude | Reduce base amplitude to prevent clipping with added harmonics. |
+
+**Success criteria:** Lullabies sound more like a real instrument (flute/music box) rather than a pure sine wave.
+
+---
+
 ## Appendix A: Kelvin-to-RGB Algorithm
 
 ```kotlin

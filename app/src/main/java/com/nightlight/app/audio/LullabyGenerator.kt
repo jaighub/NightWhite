@@ -44,8 +44,12 @@ class LullabyGenerator(private val song: LullabySong = LullabySong.BRAHMS) {
     }
 
     private val beatsPerSecond = if (song == LullabySong.TWINKLE) 4.5f else 4.0f
-    private val amplitude = 0.2f
+    private val amplitude = 0.12f
     private val envelopeSamples = (AudioConstants.SAMPLE_RATE / beatsPerSecond * 0.15f).toInt()
+
+    private val reverbBuffer = FloatArray(AudioConstants.SAMPLE_RATE / 4)
+    private var reverbIndex = 0
+    private val reverbDecay = 0.6f
 
     private var currentNoteIndex = 0
     private var sampleIndexInNote = 0
@@ -58,12 +62,24 @@ class LullabyGenerator(private val song: LullabySong = LullabySong.BRAHMS) {
             val samplesForNote = (samplesPerBeat * note.beats).toInt()
 
             val phase = 2.0f * PI.toFloat() * note.frequency * totalSampleCount / AudioConstants.SAMPLE_RATE.toFloat()
-            val rawSample = sin(phase).toFloat()
+
+            val fundamental = sin(phase)
+            val harmonic2 = sin(2.0f * phase) * 0.5f
+            val harmonic3 = sin(3.0f * phase) * 0.25f
+            val drySample = amplitude * (fundamental + harmonic2 + harmonic3)
 
             val envelope = calculateEnvelope(sampleIndexInNote, samplesForNote)
-            val sample = amplitude * rawSample * envelope
+            val dryWithEnvelope = drySample * envelope
 
-            buffer[i] = (sample * 32767).toInt().toShort()
+            val delayIndex = (reverbIndex - reverbBuffer.size / 4 + reverbBuffer.size) % reverbBuffer.size
+            val wetSample = reverbBuffer[delayIndex] * reverbDecay
+
+            reverbBuffer[reverbIndex] = dryWithEnvelope
+            reverbIndex = (reverbIndex + 1) % reverbBuffer.size
+
+            val finalSample = dryWithEnvelope + wetSample
+
+            buffer[i] = (finalSample * 32767).toInt().toShort()
 
             sampleIndexInNote++
             totalSampleCount++
