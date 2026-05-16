@@ -67,13 +67,14 @@ class MainActivity : ComponentActivity() {
                     val proximityTriggered by viewModel.proximityTriggered.collectAsState()
                     val effectiveBrightness by viewModel.effectiveBrightness.collectAsState()
                     val audioMode by viewModel.audioMode.collectAsState()
+                    val lullabySong by viewModel.lullabySong.collectAsState()
                     val noiseColor by viewModel.noiseColor.collectAsState()
                     val brownNoiseDepth by viewModel.brownNoiseDepth.collectAsState()
                     val volume by viewModel.volume.collectAsState()
 
                     val isSoundOn by viewModel.isSoundOn.collectAsState()
 
-                    LaunchedEffect(audioMode, noiseColor, brownNoiseDepth, volume, isSoundOn) {
+                    LaunchedEffect(audioMode, lullabySong, noiseColor, brownNoiseDepth, volume, isSoundOn) {
                         updateAudioService(isSoundOn)
                     }
 
@@ -155,9 +156,10 @@ class MainActivity : ComponentActivity() {
         if (!isBound || audioService == null) return
         if (isSoundOn) {
             val mode = viewModel.audioMode.value
+            val song = viewModel.lullabySong.value
             val noiseColor = viewModel.noiseColor.value
             val depth = viewModel.brownNoiseDepth.value
-            audioService?.getAudioManager()?.play(mode, noiseColor, depth)
+            audioService?.getAudioManager()?.play(mode, noiseColor, depth, song)
             val label = if (mode == com.nightlight.app.model.AudioMode.LULLABY) "Lullaby playing" else "${noiseColor.name.lowercase()} noise playing"
             audioService?.updateNotification(label)
         } else {

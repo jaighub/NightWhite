@@ -3,6 +3,7 @@ package com.nightlight.app.audio
 import android.content.Context
 import android.media.AudioManager as SysAudioManager
 import com.nightlight.app.model.AudioMode
+import com.nightlight.app.model.LullabySong
 import com.nightlight.app.model.NoiseColor
 
 class AudioManager(context: Context) {
@@ -13,6 +14,7 @@ class AudioManager(context: Context) {
     private var lastMode: AudioMode = AudioMode.NOISE
     private var lastNoiseColor: NoiseColor = NoiseColor.WHITE
     private var lastBrownNoiseDepth: Float = 0.02f
+    private var lastLullabySong: LullabySong = LullabySong.BRAHMS
 
     private val sysAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as SysAudioManager
     private var wasPlaying = false
@@ -30,17 +32,18 @@ class AudioManager(context: Context) {
             SysAudioManager.AUDIOFOCUS_GAIN -> {
                 if (wasPlaying) {
                     wasPlaying = false
-                    createAndStartPlayer(lastMode, lastNoiseColor, lastBrownNoiseDepth)
+                    createAndStartPlayer(lastMode, lastNoiseColor, lastBrownNoiseDepth, lastLullabySong)
                     currentMode = lastMode
                 }
             }
         }
     }
 
-    fun play(mode: AudioMode, noiseColor: NoiseColor, brownNoiseDepth: Float) {
+    fun play(mode: AudioMode, noiseColor: NoiseColor, brownNoiseDepth: Float, lullabySong: LullabySong = LullabySong.BRAHMS) {
         lastMode = mode
         lastNoiseColor = noiseColor
         lastBrownNoiseDepth = brownNoiseDepth
+        lastLullabySong = lullabySong
 
         val modeChanged = currentMode != mode
 
@@ -48,9 +51,9 @@ class AudioManager(context: Context) {
             stopPlayers()
             if (!requestFocus()) return
             currentMode = mode
-            createAndStartPlayer(mode, noiseColor, brownNoiseDepth)
+            createAndStartPlayer(mode, noiseColor, brownNoiseDepth, lullabySong)
         } else {
-            updatePlayer(noiseColor, brownNoiseDepth)
+            updatePlayer(noiseColor, brownNoiseDepth, lullabySong)
         }
     }
 
@@ -64,7 +67,8 @@ class AudioManager(context: Context) {
     private fun createAndStartPlayer(
         mode: AudioMode,
         noiseColor: NoiseColor,
-        brownNoiseDepth: Float
+        brownNoiseDepth: Float,
+        lullabySong: LullabySong
     ) {
         when (mode) {
             AudioMode.NOISE -> {
@@ -79,7 +83,7 @@ class AudioManager(context: Context) {
                 noisePlayer = player
             }
             AudioMode.LULLABY -> {
-                val player = LullabyPlayer()
+                val player = LullabyPlayer(lullabySong)
                 player.start()
                 lullabyPlayer = player
             }
@@ -88,7 +92,8 @@ class AudioManager(context: Context) {
 
     private fun updatePlayer(
         noiseColor: NoiseColor,
-        brownNoiseDepth: Float
+        brownNoiseDepth: Float,
+        lullabySong: LullabySong
     ) {
         when (currentMode) {
             AudioMode.NOISE -> {
@@ -101,7 +106,14 @@ class AudioManager(context: Context) {
                     player.setNoiseColor(generator)
                 }
             }
-            AudioMode.LULLABY -> {}
+            AudioMode.LULLABY -> {
+                lullabyPlayer?.let { player ->
+                    player.release()
+                }
+                val newPlayer = LullabyPlayer(lullabySong)
+                newPlayer.start()
+                lullabyPlayer = newPlayer
+            }
             null -> {}
         }
     }

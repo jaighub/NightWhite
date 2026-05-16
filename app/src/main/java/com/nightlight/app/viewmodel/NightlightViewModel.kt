@@ -6,8 +6,11 @@ import android.media.AudioManager as SysAudioManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nightlight.app.model.AudioMode
+import com.nightlight.app.model.LullabySong
 import com.nightlight.app.model.NoiseColor
 import com.nightlight.app.ui.util.kelvinToColor
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +18,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class NightlightViewModel : ViewModel() {
 
@@ -33,6 +37,9 @@ class NightlightViewModel : ViewModel() {
     private val _audioMode = MutableStateFlow(AudioMode.NOISE)
     val audioMode: StateFlow<AudioMode> = _audioMode.asStateFlow()
 
+    private val _lullabySong = MutableStateFlow(LullabySong.BRAHMS)
+    val lullabySong: StateFlow<LullabySong> = _lullabySong.asStateFlow()
+
     private val _isSoundOn = MutableStateFlow(false)
     val isSoundOn: StateFlow<Boolean> = _isSoundOn.asStateFlow()
 
@@ -47,6 +54,16 @@ class NightlightViewModel : ViewModel() {
 
     private val _proximityTriggered = MutableStateFlow(false)
     val proximityTriggered: StateFlow<Boolean> = _proximityTriggered.asStateFlow()
+
+    private val _showControls = MutableStateFlow(true)
+    val showControls: StateFlow<Boolean> = _showControls.asStateFlow()
+
+    private var controlsTimerJob: Job? = null
+    private var sleepTimerJob: Job? = null
+    private var fadeJob: Job? = null
+
+    private val _sleepTimerMinutes = MutableStateFlow(0)
+    val sleepTimerMinutes: StateFlow<Int> = _sleepTimerMinutes.asStateFlow()
 
     val effectiveBrightness: StateFlow<Float> = combine(
         proximityTriggered, isPoweredOn, brightness
@@ -71,37 +88,95 @@ class NightlightViewModel : ViewModel() {
         _isPoweredOn.value = prefs.getBoolean("isPoweredOn", false)
         _brightness.value = prefs.getFloat("brightness", 0.5f)
         _colorTemp.value = prefs.getInt("colorTemp", 3000)
+        _sleepTimerMinutes.value = prefs.getInt("sleepTimer", 0)
     }
 
     fun togglePower() {
-        _isPoweredOn.value = !_isPoweredOn.value
-        prefs.edit().putBoolean("isPoweredOn", _isPoweredOn.value).apply()
+        if (_isPoweredOn.value) {
+            fadeOutAndTurnOff()
+        } else {
+            fadeInAndTurnOn()
+        }
+        resetControlsTimer()
+    }
+
+    private fun fadeInAndTurnOn() {
+        _isPoweredOn.value = true
+        prefs.edit().putBoolean("isPoweredOn", true).apply()
+        startSleepTimerIfNeeded()
+    }
+
+    private fun fadeOutAndTurnOff() {
+        sleepTimerJob?.cancel()
+        _sleepTimerMinutes.value = 0
+        fadeJob?.cancel()
+        _isPoweredOn.value = false
+        prefs.edit().putBoolean("isPoweredOn", false).apply()
+    }
+
+    fun setSleepTimer(minutes: Int) {
+        _sleepTimerMinutes.value = minutes
+        prefs.edit().putInt("sleepTimer", minutes).apply()
+        startSleepTimerIfNeeded()
+    }
+
+    private fun startSleepTimerIfNeeded() {
+        sleepTimerJob?.cancel()
+        val minutes = _sleepTimerMinutes.value
+        if (minutes > 0 && _isPoweredOn.value) {
+            sleepTimerJob = viewModelScope.launch {
+                delay(minutes * 60 * 1000L)
+                if (_isPoweredOn.value) {
+                    fadeOutAndTurnOff()
+                }
+            }
+        }
+    }
+
+    fun resetControlsTimer() {
+        _showControls.value = true
+        controlsTimerJob?.cancel()
+        controlsTimerJob = viewModelScope.launch {
+            delay(20000)
+            _showControls.value = false
+        }
     }
 
     fun setBrightness(value: Float) {
         _brightness.value = value.coerceIn(0f, 1f)
         prefs.edit().putFloat("brightness", _brightness.value).apply()
+        resetControlsTimer()
     }
 
     fun setColorTemp(value: Int) {
         _colorTemp.value = value.coerceIn(1900, 6500)
         prefs.edit().putInt("colorTemp", _colorTemp.value).apply()
+        resetControlsTimer()
     }
 
     fun setAudioMode(mode: AudioMode) {
         _audioMode.value = mode
+        resetControlsTimer()
+    }
+
+    fun setLullabySong(song: LullabySong) {
+        _lullabySong.value = song
+        resetControlsTimer()
     }
 
     fun toggleSound() {
         _isSoundOn.value = !_isSoundOn.value
+        resetControlsTimer()
     }
 
     fun setNoiseColor(color: NoiseColor) {
         _noiseColor.value = color
+        resetControlsTimer()
     }
 
     fun setBrownNoiseDepth(depth: Float) {
         _brownNoiseDepth.value = depth.coerceIn(0.01f, 0.1f)
+        resetControlsTimer()
     }
 
     fun setVolume(gain: Float) {
@@ -112,6 +187,7 @@ class NightlightViewModel : ViewModel() {
             val vol = (gain * maxVol).toInt()
             am.setStreamVolume(SysAudioManager.STREAM_MUSIC, vol, 0)
         }
+        resetControlsTimer()
     }
 
     fun setProximityTriggered(triggered: Boolean) {

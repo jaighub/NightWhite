@@ -1,33 +1,49 @@
 package com.nightlight.app.audio
 
+import com.nightlight.app.model.LullabySong
 import kotlin.math.PI
 import kotlin.math.sin
 
-class LullabyGenerator {
+class LullabyGenerator(private val song: LullabySong = LullabySong.BRAHMS) {
 
-    private val notes = listOf(
-        // "Lullaby and good night"
-        Note(392.00f, 6), Note(392.00f, 6), Note(440.00f, 6),
-        Note(392.00f, 6), Note(329.63f, 6), Note(392.00f, 6),
-        Note(440.00f, 6), Note(392.00f, 6),
+    private val notes = when (song) {
+        LullabySong.BRAHMS -> listOf(
+            Note(392.00f, 6), Note(392.00f, 6), Note(440.00f, 6),
+            Note(392.00f, 6), Note(329.63f, 6), Note(392.00f, 6),
+            Note(440.00f, 6), Note(392.00f, 6),
+            Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
+            Note(261.63f, 6), Note(329.63f, 6), Note(392.00f, 6),
+            Note(440.00f, 6), Note(392.00f, 6),
+            Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
+            Note(261.63f, 6), Note(329.63f, 6), Note(392.00f, 6),
+            Note(440.00f, 6), Note(392.00f, 6),
+            Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
+            Note(261.63f, 6), Note(261.63f, 6), Note(261.63f, 6),
+            Note(261.63f, 6), Note(261.63f, 6),
+        )
+        LullabySong.TWINKLE -> listOf(
+            Note(261.63f, 6), Note(261.63f, 6), Note(392.00f, 6),
+            Note(392.00f, 6), Note(440.00f, 6), Note(440.00f, 6),
+            Note(392.00f, 12),
+            Note(349.23f, 6), Note(349.23f, 6), Note(329.63f, 6),
+            Note(329.63f, 6), Note(293.66f, 6), Note(293.66f, 6),
+            Note(261.63f, 12),
+            Note(392.00f, 6), Note(392.00f, 6), Note(349.23f, 6),
+            Note(349.23f, 6), Note(329.63f, 6), Note(329.63f, 6),
+            Note(293.66f, 12),
+            Note(392.00f, 6), Note(392.00f, 6), Note(349.23f, 6),
+            Note(349.23f, 6), Note(329.63f, 6), Note(329.63f, 6),
+            Note(293.66f, 12),
+            Note(261.63f, 6), Note(261.63f, 6), Note(392.00f, 6),
+            Note(392.00f, 6), Note(440.00f, 6), Note(440.00f, 6),
+            Note(392.00f, 12),
+            Note(349.23f, 6), Note(349.23f, 6), Note(329.63f, 6),
+            Note(329.63f, 6), Note(293.66f, 6), Note(293.66f, 6),
+            Note(261.63f, 12),
+        )
+    }
 
-        // "with roses bedight"
-        Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
-        Note(261.63f, 6), Note(329.63f, 6), Note(392.00f, 6),
-        Note(440.00f, 6), Note(392.00f, 6),
-
-        // "Lullaby and good night"
-        Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
-        Note(261.63f, 6), Note(329.63f, 6), Note(392.00f, 6),
-        Note(440.00f, 6), Note(392.00f, 6),
-
-        // "thy mother's delight"
-        Note(349.23f, 6), Note(329.63f, 6), Note(293.66f, 6),
-        Note(261.63f, 6), Note(261.63f, 6), Note(261.63f, 6),
-        Note(261.63f, 6), Note(261.63f, 6),
-    )
-
-    private val beatsPerSecond = 3.2f
+    private val beatsPerSecond = if (song == LullabySong.TWINKLE) 4.5f else 3.2f
     private val amplitude = 0.2f
     private val envelopeSamples = (AudioConstants.SAMPLE_RATE / beatsPerSecond * 0.15f).toInt()
 

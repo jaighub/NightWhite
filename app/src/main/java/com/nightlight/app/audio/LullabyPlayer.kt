@@ -5,6 +5,7 @@ import android.media.AudioFormat
 import android.media.AudioTrack
 import android.os.Build
 import android.util.Log
+import com.nightlight.app.model.LullabySong
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,9 +14,9 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-class LullabyPlayer {
+class LullabyPlayer(private val song: LullabySong = LullabySong.BRAHMS) {
     private val audioTrack = createAudioTrack()
-    private val generator = LullabyGenerator()
+    private val generator = LullabyGenerator(song)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default + CoroutineExceptionHandler { _, e ->
         Log.e("LullabyPlayer", "Audio coroutine failed", e)
     })

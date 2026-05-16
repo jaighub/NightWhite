@@ -1,7 +1,13 @@
 package com.nightlight.app.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
@@ -20,10 +26,20 @@ fun VolumeSlider(
     enabled: Boolean = true,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.padding(horizontal = 16.dp)
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
     ) {
+        Text(
+            text = "Volume",
+            fontWeight = FontWeight.Medium,
+            style = MaterialTheme.typography.labelLarge,
+            color = if (enabled) Color.White else Color(0xFF8A7A6D)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         Slider(
             value = volume,
             onValueChange = onVolumeChange,
@@ -35,13 +51,7 @@ fun VolumeSlider(
                 activeTrackColor = WarmAmber.copy(alpha = 0.5f),
                 inactiveTrackColor = Color(0xFF3E2C21)
             ),
-            modifier = Modifier.weight(1f)
-        )
-        Text(
-            text = "Volume",
-            fontWeight = FontWeight.Medium,
-            color = if (enabled) Color.White else Color(0xFF8A7A6D),
-            modifier = Modifier.padding(start = 8.dp)
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
