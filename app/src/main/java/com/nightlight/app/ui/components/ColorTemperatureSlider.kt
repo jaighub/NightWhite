@@ -26,6 +26,7 @@ fun ColorTemperatureSlider(
     colorTemp: Int,
     onColorTempChange: (Int) -> Unit,
     enabled: Boolean = true,
+    isPoweredOn: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     val sliderValue = ((colorTemp - 1900) / 4600f).coerceIn(0f, 1f)
@@ -49,7 +50,9 @@ fun ColorTemperatureSlider(
                 text = stringResource(R.string.warmer),
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.labelLarge,
-                color = if (enabled) Color(0xFFFFB347) else Color(0xFF8A7A6D)
+                color = if (enabled) {
+                    if (isPoweredOn) Color(0xFF8B5A2B) else Color(0xFFFFB347)
+                } else Color(0xFF8A7A6D)
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -59,7 +62,9 @@ fun ColorTemperatureSlider(
                     text = label,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.labelLarge,
-                    color = if (enabled) Color.White else Color(0xFF8A7A6D)
+                    color = if (enabled) {
+                        if (isPoweredOn) Color.Black else Color.White
+                    } else Color(0xFF8A7A6D)
                 )
                 Spacer(modifier = Modifier.weight(1f))
             } else {
@@ -70,7 +75,9 @@ fun ColorTemperatureSlider(
                 text = stringResource(R.string.cooler),
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.labelLarge,
-                color = if (enabled) Color(0xFF87CEEB) else Color(0xFF8A7A6D)
+                color = if (enabled) {
+                    if (isPoweredOn) Color(0xFF4A6B8A) else Color(0xFF87CEEB)
+                } else Color(0xFF8A7A6D)
             )
         }
 

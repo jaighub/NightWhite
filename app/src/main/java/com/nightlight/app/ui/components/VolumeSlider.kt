@@ -26,6 +26,7 @@ fun VolumeSlider(
     volume: Float,
     onVolumeChange: (Float) -> Unit,
     enabled: Boolean = true,
+    isPoweredOn: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -37,7 +38,9 @@ fun VolumeSlider(
             text = stringResource(R.string.volume),
             fontWeight = FontWeight.Medium,
             style = MaterialTheme.typography.labelLarge,
-            color = if (enabled) Color.White else Color(0xFF8A7A6D)
+            color = if (enabled) {
+                if (isPoweredOn) Color.Black else Color.White
+            } else Color(0xFF8A7A6D)
         )
 
         Spacer(modifier = Modifier.height(8.dp))

@@ -85,7 +85,8 @@ fun MainScreen(viewModel: NightlightViewModel) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     SleepTimerSelector(
                         minutes = sleepTimerMinutes,
-                        onMinutesChange = { viewModel.setSleepTimer(it) }
+                        onMinutesChange = { viewModel.setSleepTimer(it) },
+                        isPoweredOn = isPoweredOn
                     )
 
                     Spacer(modifier = Modifier.height(24.dp))
@@ -93,6 +94,7 @@ fun MainScreen(viewModel: NightlightViewModel) {
                     ColorTemperatureSlider(
                         colorTemp = colorTemp,
                         onColorTempChange = { viewModel.setColorTemp(it) },
+                        isPoweredOn = isPoweredOn,
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
 
@@ -101,6 +103,7 @@ fun MainScreen(viewModel: NightlightViewModel) {
                     BrightnessSlider(
                         brightness = brightness,
                         onBrightnessChange = { viewModel.setBrightness(it) },
+                        isPoweredOn = isPoweredOn,
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
 
@@ -118,7 +121,8 @@ fun MainScreen(viewModel: NightlightViewModel) {
                         audioMode = audioMode,
                         isSoundOn = isSoundOn,
                         onSoundToggle = { viewModel.toggleSound() },
-                        onAudioModeChange = { viewModel.setAudioMode(it) }
+                        onAudioModeChange = { viewModel.setAudioMode(it) },
+                        isPoweredOn = isPoweredOn
                     )
 
                     if (audioMode == com.nightlight.app.model.AudioMode.NOISE) {
@@ -126,7 +130,8 @@ fun MainScreen(viewModel: NightlightViewModel) {
 
                         NoiseColorSelector(
                             noiseColor = noiseColor,
-                            onNoiseColorChange = { viewModel.setNoiseColor(it) }
+                            onNoiseColorChange = { viewModel.setNoiseColor(it) },
+                            isPoweredOn = isPoweredOn
                         )
 
                         if (noiseColor == com.nightlight.app.model.NoiseColor.BROWN) {
@@ -134,7 +139,8 @@ fun MainScreen(viewModel: NightlightViewModel) {
 
                             BrownNoiseDepthSlider(
                                 depth = brownNoiseDepth,
-                                onDepthChange = { viewModel.setBrownNoiseDepth(it) }
+                                onDepthChange = { viewModel.setBrownNoiseDepth(it) },
+                                isPoweredOn = isPoweredOn
                             )
                         }
                     } else {
@@ -142,7 +148,8 @@ fun MainScreen(viewModel: NightlightViewModel) {
 
                         LullabySongSelector(
                             song = lullabySong,
-                            onSongChange = { viewModel.setLullabySong(it) }
+                            onSongChange = { viewModel.setLullabySong(it) },
+                            isPoweredOn = isPoweredOn
                         )
                     }
 
@@ -150,7 +157,8 @@ fun MainScreen(viewModel: NightlightViewModel) {
 
                     VolumeSlider(
                         volume = volume,
-                        onVolumeChange = { viewModel.setVolume(it) }
+                        onVolumeChange = { viewModel.setVolume(it) },
+                        isPoweredOn = isPoweredOn
                     )
                 }
             }

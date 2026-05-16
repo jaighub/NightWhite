@@ -23,6 +23,7 @@ fun BrightnessSlider(
     brightness: Float,
     onBrightnessChange: (Float) -> Unit,
     enabled: Boolean = true,
+    isPoweredOn: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -38,7 +39,9 @@ fun BrightnessSlider(
                 text = stringResource(R.string.brightness),
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.labelLarge,
-                color = if (enabled) Color.White else Color(0xFF8A7A6D)
+                color = if (enabled) {
+                    if (isPoweredOn) Color.Black else Color.White
+                } else Color(0xFF8A7A6D)
             )
         }
 

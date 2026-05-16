@@ -22,6 +22,7 @@ fun NoiseColorSelector(
     noiseColor: NoiseColor,
     onNoiseColorChange: (NoiseColor) -> Unit,
     enabled: Boolean = true,
+    isPoweredOn: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     val options = listOf(
@@ -45,7 +46,9 @@ fun NoiseColorSelector(
                 border = if (isSelected) BorderStroke(2.dp, Color(0xFFFFB347)) else BorderStroke(1.dp, Color(0xFF3E2C21)),
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = if (isSelected) Color(0xFFFFB347).copy(alpha = 0.3f) else Color.Transparent,
-                    contentColor = if (enabled) Color.White else Color(0xFF8A7A6D),
+                    contentColor = if (enabled) {
+                        if (isPoweredOn) Color.Black else Color.White
+                    } else Color(0xFF8A7A6D),
                     disabledContainerColor = Color.Transparent,
                     disabledContentColor = Color(0xFF8A7A6D)
                 )

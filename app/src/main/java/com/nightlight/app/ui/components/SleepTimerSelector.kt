@@ -22,6 +22,7 @@ import com.nightlight.app.R
 fun SleepTimerSelector(
     minutes: Int,
     onMinutesChange: (Int) -> Unit,
+    isPoweredOn: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     val options = listOf(
@@ -48,7 +49,7 @@ fun SleepTimerSelector(
                 border = if (isSelected) BorderStroke(2.dp, Color(0xFFFFB347)) else BorderStroke(1.dp, Color(0xFF3E2C21)),
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = if (isSelected) Color(0xFFFFB347).copy(alpha = 0.3f) else Color.Transparent,
-                    contentColor = Color.White,
+                    contentColor = if (isPoweredOn) Color.Black else Color.White,
                     disabledContainerColor = Color.Transparent,
                     disabledContentColor = Color(0xFF8A7A6D)
                 )

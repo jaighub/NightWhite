@@ -43,7 +43,7 @@ class LullabyGenerator(private val song: LullabySong = LullabySong.BRAHMS) {
         )
     }
 
-    private val beatsPerSecond = if (song == LullabySong.TWINKLE) 4.5f else 3.2f
+    private val beatsPerSecond = if (song == LullabySong.TWINKLE) 4.5f else 4.0f
     private val amplitude = 0.2f
     private val envelopeSamples = (AudioConstants.SAMPLE_RATE / beatsPerSecond * 0.15f).toInt()
 
