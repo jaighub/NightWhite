@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Nightlight</string>
+    <string name="sound">Sound</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="volume">Volume</string>
+    <string name="brightness">Brightness</string>
+    <string name="warmer">Warmer</string>
+    <string name="cooler">Cooler</string>
+    <string name="depth">Depth</string>
+    <string name="nightlight">Nightlight</string>
+    <string name="stop">Stop</string>
+    <string name="tap_to_adjust">Tap to adjust</string>
+    <string name="battery_low">Nightlight turned off — battery low</string>
+    <string name="noise">Noise</string>
+    <string name="lullaby">Lullaby</string>
+    <string name="white">White</string>
+    <string name="pink">Pink</string>
+    <string name="brown">Brown</string>
+    <string name="brahms">Brahms</string>
+    <string name="twinkle">Twinkle</string>
+    <string name="timer_off">Off</string>
+    <string name="timer_1h">1h</string>
+    <string name="timer_2h">2h</string>
+    <string name="timer_4h">4h</string>
+    <string name="timer_8h">8h</string>
+    <string name="nightlight_active">Nightlight active</string>
+    <string name="audio_channel_name">Nightlight Audio</string>
+    <string name="audio_channel_desc">Audio playback for Nightlight app</string>
 </resources>

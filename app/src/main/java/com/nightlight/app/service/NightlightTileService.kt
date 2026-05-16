@@ -1,5 +1,6 @@
 package com.nightlight.app.service
 
+import android.content.Intent
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -18,6 +19,9 @@ class NightlightTileService : TileService() {
         val prefs = getSharedPreferences("nightlight_prefs", MODE_PRIVATE)
         val isOn = prefs.getBoolean("isPoweredOn", false)
         prefs.edit().putBoolean("isPoweredOn", !isOn).apply()
+        if (!isOn) {
+            startService(Intent(this, AudioService::class.java))
+        }
         updateTile()
     }
 

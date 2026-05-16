@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.nightlight.app.R
 import com.nightlight.app.ui.theme.WarmAmber
 
 @Composable
@@ -33,7 +35,7 @@ fun BrownNoiseDepthSlider(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Depth",
+                text = stringResource(R.string.depth),
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.labelLarge,
                 color = if (enabled) Color.White else Color(0xFF8A7A6D)

@@ -14,7 +14,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.nightlight.app.R
 
 @Composable
 fun SleepTimerSelector(
@@ -22,7 +24,13 @@ fun SleepTimerSelector(
     onMinutesChange: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val options = listOf(0 to "Off", 60 to "1h", 120 to "2h", 240 to "4h", 480 to "8h")
+    val options = listOf(
+        0 to stringResource(R.string.timer_off),
+        60 to stringResource(R.string.timer_1h),
+        120 to stringResource(R.string.timer_2h),
+        240 to stringResource(R.string.timer_4h),
+        480 to stringResource(R.string.timer_8h)
+    )
 
     Row(
         modifier = modifier

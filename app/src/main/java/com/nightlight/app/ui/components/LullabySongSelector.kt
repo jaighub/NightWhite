@@ -12,7 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.nightlight.app.R
 import com.nightlight.app.model.LullabySong
 
 @Composable
@@ -22,8 +24,8 @@ fun LullabySongSelector(
     modifier: Modifier = Modifier
 ) {
     val options = listOf(
-        LullabySong.BRAHMS to "Brahms",
-        LullabySong.TWINKLE to "Twinkle"
+        LullabySong.BRAHMS to stringResource(R.string.brahms),
+        LullabySong.TWINKLE to stringResource(R.string.twinkle)
     )
 
     Row(

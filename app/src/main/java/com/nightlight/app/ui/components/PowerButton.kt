@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
+import com.nightlight.app.R
 import com.nightlight.app.ui.theme.WarmAmber
 
 @Composable
@@ -32,7 +34,7 @@ fun PowerButton(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = if (isPoweredOn) "ON" else "OFF",
+            text = if (isPoweredOn) stringResource(R.string.on) else stringResource(R.string.off),
             color = if (isPoweredOn) Color.White else Color(0xFFE8D5C4),
             fontSize = 20.sp
         )

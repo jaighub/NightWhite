@@ -76,8 +76,9 @@ class NightlightViewModel : ViewModel() {
         .stateIn(viewModelScope, SharingStarted.Eagerly, kelvinToColor(3000))
 
     fun initPrefs(context: Context) {
-        prefs = context.getSharedPreferences("nightlight_prefs", Context.MODE_PRIVATE)
-        sysAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as SysAudioManager
+        val appContext = context.applicationContext
+        prefs = appContext.getSharedPreferences("nightlight_prefs", Context.MODE_PRIVATE)
+        sysAudioManager = appContext.getSystemService(Context.AUDIO_SERVICE) as SysAudioManager
 
         _volume.value = if (prefs.contains("volume")) {
             prefs.getFloat("volume", 0.3f)

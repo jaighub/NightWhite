@@ -3,6 +3,7 @@ package com.nightlight.app.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -23,9 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nightlight.app.R
 import com.nightlight.app.model.AudioMode
 import com.nightlight.app.ui.theme.WarmAmber
 
@@ -38,8 +40,8 @@ fun AudioModeSelector(
     modifier: Modifier = Modifier
 ) {
     val options = listOf(
-        AudioMode.NOISE to "Noise",
-        AudioMode.LULLABY to "Lullaby"
+        AudioMode.NOISE to stringResource(R.string.noise),
+        AudioMode.LULLABY to stringResource(R.string.lullaby)
     )
 
     Column(
@@ -52,7 +54,7 @@ fun AudioModeSelector(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Sound",
+                text = stringResource(R.string.sound),
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.labelLarge,
                 color = Color.White
@@ -71,7 +73,7 @@ fun AudioModeSelector(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = if (isSoundOn) "ON" else "OFF",
+                    text = if (isSoundOn) stringResource(R.string.on) else stringResource(R.string.off),
                     color = if (isSoundOn) Color.White else Color(0xFFE8D5C4),
                     fontSize = 14.sp
                 )
@@ -89,7 +91,7 @@ fun AudioModeSelector(
                     onClick = { onAudioModeChange(mode) },
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(8.dp),
-                    border = if (isSelected) androidx.compose.foundation.BorderStroke(2.dp, Color(0xFFFFB347)) else androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF3E2C21)),
+                    border = if (isSelected) BorderStroke(2.dp, Color(0xFFFFB347)) else BorderStroke(1.dp, Color(0xFF3E2C21)),
                     colors = ButtonDefaults.outlinedButtonColors(
                         containerColor = if (isSelected) Color(0xFFFFB347).copy(alpha = 0.3f) else Color.Transparent,
                         contentColor = Color.White,

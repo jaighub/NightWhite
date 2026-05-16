@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.nightlight.app.R
 import com.nightlight.app.ui.theme.WarmAmber
 import kotlin.math.roundToInt
 
@@ -29,8 +31,8 @@ fun ColorTemperatureSlider(
     val sliderValue = ((colorTemp - 1900) / 4600f).coerceIn(0f, 1f)
 
     val label = when {
-        sliderValue < 0.33f -> "Warmer"
-        sliderValue > 0.66f -> "Cooler"
+        sliderValue < 0.33f -> stringResource(R.string.warmer)
+        sliderValue > 0.66f -> stringResource(R.string.cooler)
         else -> ""
     }
 
@@ -44,7 +46,7 @@ fun ColorTemperatureSlider(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Warmer",
+                text = stringResource(R.string.warmer),
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.labelLarge,
                 color = if (enabled) Color(0xFFFFB347) else Color(0xFF8A7A6D)
@@ -65,7 +67,7 @@ fun ColorTemperatureSlider(
             }
 
             Text(
-                text = "Cooler",
+                text = stringResource(R.string.cooler),
                 fontWeight = FontWeight.Medium,
                 style = MaterialTheme.typography.labelLarge,
                 color = if (enabled) Color(0xFF87CEEB) else Color(0xFF8A7A6D)

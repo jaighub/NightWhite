@@ -22,7 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import com.nightlight.app.sensors.BatteryMonitor
-import com.nightlight.app.sensors.ProximitySensorManager
+import com.nightlight.app.sensors.FaceDownDetector
 import com.nightlight.app.service.AudioService
 import com.nightlight.app.ui.MainScreen
 import com.nightlight.app.ui.theme.NightlightTheme
@@ -31,7 +31,7 @@ import com.nightlight.app.viewmodel.NightlightViewModel
 class MainActivity : ComponentActivity() {
 
     private lateinit var viewModel: NightlightViewModel
-    private var proximitySensorManager: ProximitySensorManager? = null
+    private var faceDownDetector: FaceDownDetector? = null
     private var batteryMonitor: BatteryMonitor? = null
     private var audioService: AudioService? = null
     private var isBound = false
@@ -124,24 +124,24 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        proximitySensorManager = ProximitySensorManager(this) { triggered ->
+        faceDownDetector = FaceDownDetector(this) { triggered ->
             viewModel.setProximityTriggered(triggered)
         }
-        proximitySensorManager?.register()
+        faceDownDetector?.register()
 
         batteryMonitor = BatteryMonitor(this) {
             if (viewModel.isPoweredOn.value) {
                 viewModel.togglePower()
             }
-            Toast.makeText(this, "Nightlight turned off — battery low", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.battery_low), Toast.LENGTH_LONG).show()
         }
         batteryMonitor?.register()
     }
 
     override fun onPause() {
         super.onPause()
-        proximitySensorManager?.unregister()
-        proximitySensorManager = null
+        faceDownDetector?.unregister()
+        faceDownDetector = null
         batteryMonitor?.unregister()
         batteryMonitor = null
     }

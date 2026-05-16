@@ -12,7 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.nightlight.app.R
 import com.nightlight.app.model.NoiseColor
 
 @Composable
@@ -23,9 +25,9 @@ fun NoiseColorSelector(
     modifier: Modifier = Modifier
 ) {
     val options = listOf(
-        NoiseColor.WHITE to "White",
-        NoiseColor.PINK to "Pink",
-        NoiseColor.BROWN to "Brown"
+        NoiseColor.WHITE to stringResource(R.string.white),
+        NoiseColor.PINK to stringResource(R.string.pink),
+        NoiseColor.BROWN to stringResource(R.string.brown)
     )
 
     Row(

@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class LullabyPlayer(private val song: LullabySong = LullabySong.BRAHMS) {
@@ -37,12 +38,15 @@ class LullabyPlayer(private val song: LullabySong = LullabySong.BRAHMS) {
     fun stop() {
         playJob?.cancel()
         playJob = null
-        audioTrack.stop()
+        if (audioTrack.playState == android.media.AudioTrack.PLAYSTATE_PLAYING) {
+            audioTrack.stop()
+        }
         audioTrack.flush()
     }
 
     fun release() {
         stop()
+        scope.cancel()
         audioTrack.release()
     }
 

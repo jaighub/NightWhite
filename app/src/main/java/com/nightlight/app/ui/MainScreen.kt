@@ -35,6 +35,8 @@ import com.nightlight.app.ui.components.NoiseColorSelector
 import com.nightlight.app.ui.components.PowerButton
 import com.nightlight.app.ui.components.SleepTimerSelector
 import com.nightlight.app.ui.components.VolumeSlider
+import androidx.compose.ui.res.stringResource
+import com.nightlight.app.R
 import com.nightlight.app.ui.theme.WarmBlack
 import com.nightlight.app.viewmodel.NightlightViewModel
 
@@ -159,7 +161,7 @@ fun MainScreen(viewModel: NightlightViewModel) {
                 exit = fadeOut()
             ) {
                 Text(
-                    text = "Tap to adjust",
+                    text = stringResource(R.string.tap_to_adjust),
                     color = Color.White.copy(alpha = 0.3f),
                     modifier = Modifier.padding(top = 16.dp)
                 )

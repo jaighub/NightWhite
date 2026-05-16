@@ -7,9 +7,9 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.util.Log
 
-class ProximitySensorManager(
+class FaceDownDetector(
     context: Context,
-    private val onProximityTriggered: (Boolean) -> Unit
+    private val onFaceDown: (Boolean) -> Unit
 ) {
     private val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private val accelerometer: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -27,7 +27,7 @@ class ProximitySensorManager(
             if (lastState != isFaceDown) {
                 lastState = isFaceDown
                 Log.d("ProximitySensor", "accel x=$x y=$y z=$z faceDown=$isFaceDown")
-                onProximityTriggered(isFaceDown)
+                onFaceDown(isFaceDown)
             }
         }
 

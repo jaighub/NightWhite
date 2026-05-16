@@ -32,10 +32,9 @@ class AudioService : Service() {
             stopSelf()
             return START_NOT_STICKY
         }
-        audioManager.stop()
-        val notification = buildNotification("White noise playing")
+        val notification = buildNotification(getString(R.string.nightlight_active))
         startForeground(NOTIFICATION_ID, notification)
-        return START_NOT_STICKY
+        return START_STICKY
     }
 
     override fun onBind(intent: Intent?): android.os.IBinder = binder
@@ -58,10 +57,10 @@ class AudioService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Nightlight Audio",
+                getString(R.string.audio_channel_name),
                 NotificationManager.IMPORTANCE_LOW
             )
-            channel.description = "Audio playback for Nightlight app"
+            channel.description = getString(R.string.audio_channel_desc)
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(channel)
         }
@@ -73,7 +72,7 @@ class AudioService : Service() {
         }
         val stopPendingIntent = PendingIntent.getService(
             this,
-            0,
+            1,
             stopIntent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -81,19 +80,19 @@ class AudioService : Service() {
         val openIntent = Intent(this, MainActivity::class.java)
         val openPendingIntent = PendingIntent.getActivity(
             this,
-            0,
+            2,
             openIntent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         return Notification.Builder(this, CHANNEL_ID)
-            .setContentTitle("Nightlight")
+            .setContentTitle(getString(R.string.nightlight))
             .setContentText(contentText)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentIntent(openPendingIntent)
             .addAction(
                 android.R.drawable.ic_media_pause,
-                "Stop",
+                getString(R.string.stop),
                 stopPendingIntent
             )
             .setOngoing(true)

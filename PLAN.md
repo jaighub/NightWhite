@@ -231,6 +231,52 @@
 
 ---
 
+## Phase 8: Code Review & Polish
+
+**Status:** ✅ COMPLETE
+
+**Goal:** Address code review findings and improve code quality.
+
+| Step | Description | Details |
+|------|-------------|---------|
+| 8.1 | Fix BatteryMonitor extra keys | Use `BatteryManager.EXTRA_LEVEL` / `EXTRA_SCALE` constants |
+| 8.2 | Fix ViewModel context leak | Use `applicationContext` instead of Activity context |
+| 8.3 | Fix CoroutineScope leak in audio players | Call `scope.cancel()` in `release()` |
+| 8.4 | Fix AudioService unconditional stop | Remove `audioManager.stop()` from `onStartCommand` |
+| 8.5 | Fix AudioTrack.stop() crash | Check `playState == PLAYSTATE_PLAYING` before stopping |
+| 8.6 | Fix PendingIntent requestCode collision | Use distinct request codes (1 for stop, 2 for open) |
+| 8.7 | Fix TileService state sync | Start AudioService when tile toggles on |
+| 8.8 | Remove unused imports | Clean up `AudioModeSelector.kt` |
+| 8.9 | Fix dead code in Theme.kt | Remove duplicate `dynamicDarkColorScheme` branch |
+| 8.10 | Rename ProximitySensorManager | Renamed to `FaceDownDetector` (uses accelerometer, not proximity) |
+| 8.11 | String externalization | Move all hardcoded strings to `res/values/strings.xml` |
+| 8.12 | Remove fade-in animation | Removed confusing fade that overrode user settings |
+| 8.13 | Speed up Twinkle lullaby | Increased tempo to 4.5 beats/sec (vs 3.2 for Brahms) |
+| 8.14 | Fix timer button layout | Made `SleepTimerSelector` horizontally scrollable to prevent text wrapping |
+
+**Success criteria:** Zero compilation errors, zero lint warnings, all strings externalized, no context leaks.
+
+---
+
+## Phase 9: Feature Expansion
+
+**Status:** ✅ COMPLETE
+
+**Goal:** Add high-value features requested by user.
+
+| Step | Description | Details |
+|------|-------------|---------|
+| 9.1 | Sleep Timer | Off/1h/2h/4h/8h options. Auto-fades out and turns off when timer expires. |
+| 9.2 | Quick Settings Tile | `NightlightTileService` — toggle nightlight from notification shade. |
+| 9.3 | Fade In/Out Transitions | Smooth 2-second ramp for brightness/volume on power toggle. |
+| 9.4 | Twinkle Twinkle Lullaby | Second lullaby option alongside Brahms. Faster tempo (4.5 bps). |
+| 9.5 | Auto-hide controls | Controls fade out after 20s of inactivity. Tap anywhere to reveal. |
+| 9.6 | Timer under power button | Moved sleep timer to top of screen for better visual hierarchy. |
+
+**Success criteria:** All features functional on emulator and physical device.
+
+---
+
 ## Appendix A: Kelvin-to-RGB Algorithm
 
 ```kotlin
