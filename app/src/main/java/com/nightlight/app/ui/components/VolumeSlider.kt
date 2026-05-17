@@ -25,9 +25,9 @@ import com.nightlight.app.ui.theme.WarmAmber
 fun VolumeSlider(
     volume: Float,
     onVolumeChange: (Float) -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    isPoweredOn: Boolean = false,
-    modifier: Modifier = Modifier
+    isPoweredOn: Boolean = false
 ) {
     Column(
         modifier = modifier

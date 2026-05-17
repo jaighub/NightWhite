@@ -15,7 +15,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class LullabyPlayer(private val song: LullabySong = LullabySong.BRAHMS) {
+class LullabyPlayer(private val song: LullabySong = LullabySong.TWINKLE) {
     private val audioTrack = createAudioTrack()
     private val generator = LullabyGenerator(song)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default + CoroutineExceptionHandler { _, e ->

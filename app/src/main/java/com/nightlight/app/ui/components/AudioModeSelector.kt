@@ -37,8 +37,8 @@ fun AudioModeSelector(
     isSoundOn: Boolean,
     onSoundToggle: () -> Unit,
     onAudioModeChange: (AudioMode) -> Unit,
-    isPoweredOn: Boolean = false,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isPoweredOn: Boolean = false
 ) {
     val options = listOf(
         AudioMode.NOISE to stringResource(R.string.noise),

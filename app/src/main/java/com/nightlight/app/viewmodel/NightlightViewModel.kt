@@ -37,13 +37,13 @@ class NightlightViewModel : ViewModel() {
     private val _audioMode = MutableStateFlow(AudioMode.NOISE)
     val audioMode: StateFlow<AudioMode> = _audioMode.asStateFlow()
 
-    private val _lullabySong = MutableStateFlow(LullabySong.BRAHMS)
+    private val _lullabySong = MutableStateFlow(LullabySong.TWINKLE)
     val lullabySong: StateFlow<LullabySong> = _lullabySong.asStateFlow()
 
     private val _isSoundOn = MutableStateFlow(false)
     val isSoundOn: StateFlow<Boolean> = _isSoundOn.asStateFlow()
 
-    private val _noiseColor = MutableStateFlow(NoiseColor.WHITE)
+    private val _noiseColor = MutableStateFlow(NoiseColor.BROWN)
     val noiseColor: StateFlow<NoiseColor> = _noiseColor.asStateFlow()
 
     private val _brownNoiseDepth = MutableStateFlow(0.02f)

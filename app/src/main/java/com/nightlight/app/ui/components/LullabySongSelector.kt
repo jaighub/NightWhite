@@ -21,8 +21,8 @@ import com.nightlight.app.model.LullabySong
 fun LullabySongSelector(
     song: LullabySong,
     onSongChange: (LullabySong) -> Unit,
-    isPoweredOn: Boolean = false,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isPoweredOn: Boolean = false
 ) {
     val options = listOf(
         LullabySong.BRAHMS to stringResource(R.string.brahms),

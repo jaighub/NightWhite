@@ -22,9 +22,9 @@ import com.nightlight.app.ui.theme.WarmAmber
 fun BrightnessSlider(
     brightness: Float,
     onBrightnessChange: (Float) -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    isPoweredOn: Boolean = false,
-    modifier: Modifier = Modifier
+    isPoweredOn: Boolean = false
 ) {
     Column(
         modifier = modifier

@@ -25,9 +25,9 @@ import kotlin.math.roundToInt
 fun ColorTemperatureSlider(
     colorTemp: Int,
     onColorTempChange: (Int) -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    isPoweredOn: Boolean = false,
-    modifier: Modifier = Modifier
+    isPoweredOn: Boolean = false
 ) {
     val sliderValue = ((colorTemp - 1900) / 4600f).coerceIn(0f, 1f)
 

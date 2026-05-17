@@ -12,9 +12,9 @@ class AudioManager(context: Context) {
     private var currentMode: AudioMode? = null
 
     private var lastMode: AudioMode = AudioMode.NOISE
-    private var lastNoiseColor: NoiseColor = NoiseColor.WHITE
+    private var lastNoiseColor: NoiseColor = NoiseColor.BROWN
     private var lastBrownNoiseDepth: Float = 0.02f
-    private var lastLullabySong: LullabySong = LullabySong.BRAHMS
+    private var lastLullabySong: LullabySong = LullabySong.TWINKLE
 
     private val sysAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as SysAudioManager
     private var wasPlaying = false
@@ -39,7 +39,7 @@ class AudioManager(context: Context) {
         }
     }
 
-    fun play(mode: AudioMode, noiseColor: NoiseColor, brownNoiseDepth: Float, lullabySong: LullabySong = LullabySong.BRAHMS) {
+    fun play(mode: AudioMode, noiseColor: NoiseColor, brownNoiseDepth: Float, lullabySong: LullabySong = LullabySong.TWINKLE) {
         lastMode = mode
         lastNoiseColor = noiseColor
         lastBrownNoiseDepth = brownNoiseDepth

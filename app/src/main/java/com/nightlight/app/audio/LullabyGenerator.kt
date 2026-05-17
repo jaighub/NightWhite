@@ -4,7 +4,7 @@ import com.nightlight.app.model.LullabySong
 import kotlin.math.PI
 import kotlin.math.sin
 
-class LullabyGenerator(private val song: LullabySong = LullabySong.BRAHMS) {
+class LullabyGenerator(private val song: LullabySong = LullabySong.TWINKLE) {
 
     private val notes = when (song) {
         LullabySong.BRAHMS -> listOf(

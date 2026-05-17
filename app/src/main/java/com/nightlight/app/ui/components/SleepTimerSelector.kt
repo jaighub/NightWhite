@@ -22,8 +22,8 @@ import com.nightlight.app.R
 fun SleepTimerSelector(
     minutes: Int,
     onMinutesChange: (Int) -> Unit,
-    isPoweredOn: Boolean = false,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isPoweredOn: Boolean = false
 ) {
     val options = listOf(
         0 to stringResource(R.string.timer_off),

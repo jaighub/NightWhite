@@ -21,9 +21,9 @@ import com.nightlight.app.model.NoiseColor
 fun NoiseColorSelector(
     noiseColor: NoiseColor,
     onNoiseColorChange: (NoiseColor) -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    isPoweredOn: Boolean = false,
-    modifier: Modifier = Modifier
+    isPoweredOn: Boolean = false
 ) {
     val options = listOf(
         NoiseColor.WHITE to stringResource(R.string.white),
