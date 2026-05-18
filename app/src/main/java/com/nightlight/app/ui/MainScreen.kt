@@ -227,6 +227,7 @@ fun InfoDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(text = stringResource(R.string.how_to_use)) },
+        containerColor = Color(0.9f, 0.9f, 0.9f, 0.9f),
         text = {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState())
