@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nightlight</string>
+    <string name="app_name">Night White</string>
     <string name="sound">Sound</string>
     <string name="on">ON</string>
     <string name="off">OFF</string>
@@ -8,10 +8,10 @@
     <string name="warmer">Warmer</string>
     <string name="cooler">Cooler</string>
     <string name="depth">Depth</string>
-    <string name="nightlight">Nightlight</string>
+    <string name="nightlight">Night White</string>
     <string name="stop">Stop</string>
     <string name="tap_to_adjust">Tap to adjust</string>
-    <string name="battery_low">Nightlight turned off — battery low</string>
+    <string name="battery_low">Night White turned off — battery low</string>
     <string name="noise">Noise</string>
     <string name="lullaby">Lullaby</string>
     <string name="white">White</string>
@@ -24,9 +24,9 @@
     <string name="timer_2h">2h</string>
     <string name="timer_4h">4h</string>
     <string name="timer_8h">8h</string>
-    <string name="nightlight_active">Nightlight active</string>
-    <string name="audio_channel_name">Nightlight Audio</string>
-    <string name="audio_channel_desc">Audio playback for Nightlight app</string>
+    <string name="nightlight_active">Night White active</string>
+    <string name="audio_channel_name">Night White Audio</string>
+    <string name="audio_channel_desc">Audio playback for Night White</string>
     <string name="how_to_use">How to Use</string>
     <string name="help_power">Tap the center button to turn the nightlight on or off</string>
     <string name="help_flip">Flip your phone face-down on a flat surface to automatically dim the screen</string>
