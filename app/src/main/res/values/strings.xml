@@ -27,4 +27,11 @@
     <string name="nightlight_active">Nightlight active</string>
     <string name="audio_channel_name">Nightlight Audio</string>
     <string name="audio_channel_desc">Audio playback for Nightlight app</string>
+    <string name="how_to_use">How to Use</string>
+    <string name="help_power">Tap the center button to turn the nightlight on or off</string>
+    <string name="help_flip">Flip your phone face-down on a flat surface to automatically dim the screen</string>
+    <string name="help_controls">Controls auto-hide after 20 seconds. Tap anywhere to bring them back</string>
+    <string name="help_timer">Sleep timer turns off the light and audio after the selected time</string>
+    <string name="help_tile">Toggle the nightlight instantly from Quick Settings in the notification shade</string>
+    <string name="version">Version</string>
 </resources>
