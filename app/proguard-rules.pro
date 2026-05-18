@@ -1,50 +1,33 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to rules specified
-# in ${sdk.dir}/tools/proguard/proguard-android.txt
+# Project-specific ProGuard rules for Nightlight
 
-# Compose
--keep class androidx.compose.** { *; }
--keep class androidx.compose.ui.** { *; }
--keep class androidx.compose.runtime.** { *; }
+# Compose - only keep what's needed for runtime reflection
+-keep,allowobfuscation @interface androidx.compose.runtime.Composable
+-keep class * {
+    @androidx.compose.runtime.Composable <methods>;
+}
 
-# ViewModel
--keep class * extends androidx.lifecycle.ViewModel {
+# ViewModel - keep constructors for instantiation
+-keepclassmembers class * extends androidx.lifecycle.ViewModel {
     <init>(...);
 }
--keepclassmembers class * extends androidx.lifecycle.ViewModel {
-    <methods>;
-}
 
-# Keep DataStore
--keep class androidx.datastore.** { *; }
+# DataStore
+-keep class androidx.datastore.preferences.core.** { *; }
 
-# Keep Service classes
--keep class com.nightlight.app.service.** { *; }
+# App classes - keep public APIs
+-keep public class com.nightlight.app.MainActivity { *; }
+-keep public class com.nightlight.app.service.** { *; }
+-keep public class com.nightlight.app.viewmodel.** { *; }
+-keep public class com.nightlight.app.audio.** { *; }
+-keep public class com.nightlight.app.sensor.** { *; }
+-keep public class com.nightlight.app.data.** { *; }
 
-# Keep Sensor managers
--keep class com.nightlight.app.sensor.** { *; }
-
-# Keep Audio generator
--keep class com.nightlight.app.audio.** { *; }
-
-# Keep Data classes
--keep class com.nightlight.app.data.** { *; }
-
-# Keep ViewModel
--keep class com.nightlight.app.viewmodel.** { *; }
-
-# Keep UI components
--keep class com.nightlight.app.ui.** { *; }
-
-# Keep MainActivity
--keep class com.nightlight.app.MainActivity { *; }
-
-# Keep enum classes (for DataStore serialization)
+# Enum classes (for DataStore serialization)
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
 
-# Suppress warnings for unused library classes
+# Suppress known warnings
 -dontwarn androidx.compose.ui.platform.**
 -dontwarn org.jetbrains.annotations.**
