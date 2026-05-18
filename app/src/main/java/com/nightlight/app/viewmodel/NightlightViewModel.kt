@@ -80,16 +80,16 @@ class NightlightViewModel : ViewModel() {
         prefs = appContext.getSharedPreferences("nightlight_prefs", Context.MODE_PRIVATE)
         sysAudioManager = appContext.getSystemService(Context.AUDIO_SERVICE) as SysAudioManager
 
-        _volume.value = if (prefs.contains("volume")) {
-            prefs.getFloat("volume", 0.3f)
-        } else {
-            0.3f
-        }
-
         _isPoweredOn.value = prefs.getBoolean("isPoweredOn", false)
         _brightness.value = prefs.getFloat("brightness", 0.5f)
         _colorTemp.value = prefs.getInt("colorTemp", 3000)
         _sleepTimerMinutes.value = prefs.getInt("sleepTimer", 0)
+        _volume.value = prefs.getFloat("volume", 0.3f)
+        _audioMode.value = AudioMode.valueOf(prefs.getString("audioMode", AudioMode.NOISE.name) ?: AudioMode.NOISE.name)
+        _lullabySong.value = LullabySong.valueOf(prefs.getString("lullabySong", LullabySong.TWINKLE.name) ?: LullabySong.TWINKLE.name)
+        _isSoundOn.value = prefs.getBoolean("isSoundOn", false)
+        _noiseColor.value = NoiseColor.valueOf(prefs.getString("noiseColor", NoiseColor.BROWN.name) ?: NoiseColor.BROWN.name)
+        _brownNoiseDepth.value = prefs.getFloat("brownNoiseDepth", 0.02f)
     }
 
     fun togglePower() {
@@ -157,26 +157,31 @@ class NightlightViewModel : ViewModel() {
 
     fun setAudioMode(mode: AudioMode) {
         _audioMode.value = mode
+        prefs.edit().putString("audioMode", mode.name).apply()
         resetControlsTimer()
     }
 
     fun setLullabySong(song: LullabySong) {
         _lullabySong.value = song
+        prefs.edit().putString("lullabySong", song.name).apply()
         resetControlsTimer()
     }
 
     fun toggleSound() {
         _isSoundOn.value = !_isSoundOn.value
+        prefs.edit().putBoolean("isSoundOn", _isSoundOn.value).apply()
         resetControlsTimer()
     }
 
     fun setNoiseColor(color: NoiseColor) {
         _noiseColor.value = color
+        prefs.edit().putString("noiseColor", color.name).apply()
         resetControlsTimer()
     }
 
     fun setBrownNoiseDepth(depth: Float) {
         _brownNoiseDepth.value = depth.coerceIn(0.01f, 0.1f)
+        prefs.edit().putFloat("brownNoiseDepth", _brownNoiseDepth.value).apply()
         resetControlsTimer()
     }
 

@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.nightlight.app.R
 
 class BatteryMonitor(
@@ -45,7 +47,11 @@ class BatteryMonitor(
         isTriggered = false
         handler.removeCallbacksAndMessages(null)
         val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-        context.registerReceiver(batteryReceiver, filter)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.registerReceiver(context, batteryReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+        } else {
+            context.registerReceiver(batteryReceiver, filter)
+        }
     }
 
     fun unregister() {
