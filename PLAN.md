@@ -1,7 +1,7 @@
 # Nightlight App — Detailed Phased Plan
 
 **Project location:** `C:\Repos\nightlighter`  
-**Package:** `com.nightlight.app`  
+**Package:** `com.nightwhite.app`  
 **App name:** "Nightlight"  
 **Tech:** Kotlin + Jetpack Compose + Material 3 (dark, warm palette, `dynamicColor = false`)  
 **Min/Target/Compile SDK:** 26 / 35 / 35  

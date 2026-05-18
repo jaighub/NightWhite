@@ -15,12 +15,12 @@
 -keep class androidx.datastore.preferences.core.** { *; }
 
 # App classes - keep public APIs
--keep public class com.nightlight.app.MainActivity { *; }
--keep public class com.nightlight.app.service.** { *; }
--keep public class com.nightlight.app.viewmodel.** { *; }
--keep public class com.nightlight.app.audio.** { *; }
--keep public class com.nightlight.app.sensor.** { *; }
--keep public class com.nightlight.app.data.** { *; }
+-keep public class com.nightwhite.app.MainActivity { *; }
+-keep public class com.nightwhite.app.service.** { *; }
+-keep public class com.nightwhite.app.viewmodel.** { *; }
+-keep public class com.nightwhite.app.audio.** { *; }
+-keep public class com.nightwhite.app.sensor.** { *; }
+-keep public class com.nightwhite.app.data.** { *; }
 
 # Enum classes (for DataStore serialization)
 -keepclassmembers enum * {

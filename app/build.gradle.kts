@@ -14,11 +14,11 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.nightlight.app"
+    namespace = "com.nightwhite.app"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.nightlight.app"
+        applicationId = "com.nightwhite.app"
         minSdk = 26
         targetSdk = 35
         versionCode = 2

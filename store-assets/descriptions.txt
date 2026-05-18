@@ -1,0 +1,25 @@
+## Short Description (80 chars max)
+
+Night White — warm glow, soothing sounds, sleep better
+
+## Full Description (4000 chars max)
+
+Night White turns your phone into a gentle nightlight and sleep aid. Perfect for bedtime, meditation, or creating a calm atmosphere.
+
+**Features:**
+
+• **Warm Glow** — Adjustable color temperature from deep amber to soft white, with smooth brightness control
+• **Soothing Sounds** — Choose from white, pink, or brown noise — or drift off to built-in lullabies like Twinkle Twinkle and Brahms' Lullaby
+• **Sleep Timer** — Set the light and audio to turn off automatically after 1, 2, 4, or 8 hours
+• **Flip to Dim** — Place your phone face-down to automatically dim the screen without touching it
+• **Quick Settings Tile** — Toggle your nightlight instantly from the notification shade
+• **Battery Protection** — Automatically turns off when battery drops below 15%
+• **Zero Distractions** — Controls hide after 20 seconds so the screen stays clean and dark
+
+**Perfect for:**
+→ Parents soothing babies to sleep
+→ Adults who need darkness but want a gentle glow
+→ Meditation and relaxation sessions
+→ Anyone who struggles with screen light at night
+
+**Privacy:** Night White works entirely offline. No data collection, no ads, no internet permission required.
